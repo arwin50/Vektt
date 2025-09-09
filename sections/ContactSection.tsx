@@ -9,7 +9,7 @@ const ContactSection = () => {
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSend = (e) => {
+  const handleSend = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSending(true);
     setError("");
