@@ -4,7 +4,7 @@ import emailjs from "@emailjs/browser";
 import { useRef, useState } from "react";
 
 const ContactSection = () => {
-  const formRef = useRef(null);
+  const formRef = useRef<HTMLFormElement>(null);
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
@@ -19,14 +19,16 @@ const ContactSection = () => {
       .sendForm(
         import.meta.env.VITE_EMAILJS_SERVICE_ID as string,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string,
-        formRef.current,
+        formRef.current!,
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string
       )
       .then(
         () => {
           setSending(false);
           setSent(true);
-          formRef.current.reset();
+          if (formRef.current) {
+            formRef.current.reset();
+          }
         },
         (err) => {
           setSending(false);
